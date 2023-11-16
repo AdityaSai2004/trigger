@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build & Deploy
         env:
-          PRIVATE_KEY: -----BEGIN RSA PRIVATE KEY-----
+          PRIVATE_KEY:
             MIIEpAIBAAKCAQEAsjR/quaBA1vjcZIsgvhIYnd6MLOGD4TbZ2ryYx30o4IZGsQm
             OXO/6rufHqBVuLVCBO/ABe8P1EA/6SNpRfHJHkCMXptiu4Fpf0kn+7xQ+sbfXl8q
             qaetgQMlIKrXJvYcy6XdFRcjybkmCTRod/iOW+czNSkqGmjMhEjh6vM6wPtupF/l
@@ -40,12 +40,12 @@ jobs:
             6hFWcQKBgQCCpKwLHwFaatdR07R2imKoHkgFFYjnb5rjxzPLbebd3ckTpbTNuBcf
             IlrXJPtVGWsY4o54DOMej8CP5j+a1cOtTVYGIcXNZlLPEv0X+0ktWngzlT7MFBcW
             pkIXbEtXk2H2j8WDDxlxoJYLJV2pdfo3+jHdAHY/aF/OPAdJ2dFoFw==
-            -----END RSA PRIVATE KEY-----
           HOSTNAME: ${{ secrets.IP }}
           USER_NAME: ec2-user
 
         run: |
-          ssh -i ${{env.PRIVATE_KEY}} ec2-user@${{ secrets.IP }}
+          echo "${{ env.PRIVATE_KEY }}" > key.pem
+          ssh -i key.pem ec2-user@${{ secrets.IP }}
           echo "Hello World"
 
   # start_notebook:
