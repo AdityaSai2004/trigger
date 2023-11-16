@@ -42,10 +42,10 @@ jobs:
             pkIXbEtXk2H2j8WDDxlxoJYLJV2pdfo3+jHdAHY/aF/OPAdJ2dFoFw==
             -----END RSA PRIVATE KEY-----
           HOSTNAME: ${{ secrets.IP }}
-          USER_NAME: "ec2-user"
+          USER_NAME: ec2-user
 
         run: |
-          ssh -i private_key ${USER_NAME}@${HOSTNAME}
+          ssh -i private_key ec2-user@${{ secrets.IP }}
           echo "Hello World"
 
   # start_notebook:
