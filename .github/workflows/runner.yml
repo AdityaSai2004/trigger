@@ -38,6 +38,8 @@ jobs:
 
       - name: Run Shell Script
         run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.ID }}"
+
           ssh -i ${{ secrets.SSH }} ec2-user@${{ secrets.IP }} "cd /trigger && chmod +x runner.sh && ./runner.sh"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
