@@ -14,7 +14,33 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build & Deploy
         env:
-          PRIVATE_KEY: ${{ secrets.SSH }}
+          PRIVATE_KEY: -----BEGIN RSA PRIVATE KEY-----
+            MIIEpAIBAAKCAQEAsjR/quaBA1vjcZIsgvhIYnd6MLOGD4TbZ2ryYx30o4IZGsQm
+            OXO/6rufHqBVuLVCBO/ABe8P1EA/6SNpRfHJHkCMXptiu4Fpf0kn+7xQ+sbfXl8q
+            qaetgQMlIKrXJvYcy6XdFRcjybkmCTRod/iOW+czNSkqGmjMhEjh6vM6wPtupF/l
+            FDvB88X2QNTCDQvNxCFRUIodV1KkDhqsKdJhYh2STJFH1meFCJcAZ3qEuJnLlBNn
+            F0HyH71X5Z1/6nMWvhuHGrO84Nm2uBNWgh21UHvs6+KEMs9DKu6tFpk1adgrmK/l
+            NyTppm71JZfsz9umamu5me7JqmZTltutpdN8TQIDAQABAoIBAQCffIapz+O0ut8i
+            fHzjtgsqPN2ZioG3j+LAeqF1fZC9aSjIoLXJA0PGc6YjxcESLv5n5p4HcX3MKrhI
+            Ec4csBibv48g+JXzVA2zwihLjq020xeDoU5QSeXpKYRn6R3nG6qHw+jKAEyiM9bL
+            tCCvBj96Fr/omu+4dQRce9Hc8VQq8xxmV2gBTM2WgCDHRkjMK/nxj8TPEBV4i5BZ
+            EXlcRMDjKS4woZh8Lb34uffKpwp89Z6qCLB3mGrIzDE8/zDLPw83bbb6TTjS0MGc
+            i8jX2B645iCZRTKPj3hgNvMZjNfnMT4YgCBTZa/225VDYAsqt0So2s21pxLCFzSm
+            x6ThRShhAoGBAOPJMjFFCnfdq9/K1m5y0qqJpCYcFS9GpepYm7VwsBIXsHcaU+pB
+            xq8ZG9kJ9g+M1qmmGsxrsa3Mtm1JLjHSmPmJ2Ha5MDYxh7bXD4VuJbQG6AmTAFeO
+            XVeTGERuJj+nQtJpz4aOA3J75+Ml/+43eoe+3jeAULgwfeitG+eNr91VAoGBAMhH
+            KBIKBAu/wLqePVoSvs8Y8YdfwA5vXZ70i0z+/EVmmqZdMXVRCUf7WC6RkizZQJrY
+            Vp3a6WwIcsMzqM9t1PqulgaJ3lUJaJkL4f9n8wArg721hRBgv8S9h316xfFzt8RK
+            9kbXKQld1OwOgaQIul73HbEqn4LcRjO5+gjg02MZAoGARy6YgM0SeGLNUyIP4HQB
+            YUmiAkbEWAG713/ZKNoOK5k7i/yuPIZRkGZITYrPWgypCFrgBQGihK10VLKJvQgS
+            xehNvMwiRM01m+2Y7Bl/rsJ5wIQvlyzl/nf5HWlOipW6TAbE00eNzDjsPg+h6s9r
+            ewAqcS2oC+cbcZqnHbUpQAECgYAMys66aD1d6r+Kq/TLPgtF+xfiR7FiuqZGMuR6
+            5IaEgEs8eRNhpO1s1ZcKUm39w1qnCU5vAr6KEfgSk8gih6dk46XdgQzcbZ9qtyGW
+            SLNyvVTK1z9KjoNxM5Hl5+Ogyn1gYlFcsP2EBaRF9588NPqCelJBMLHDkAJD54sa
+            6hFWcQKBgQCCpKwLHwFaatdR07R2imKoHkgFFYjnb5rjxzPLbebd3ckTpbTNuBcf
+            IlrXJPtVGWsY4o54DOMej8CP5j+a1cOtTVYGIcXNZlLPEv0X+0ktWngzlT7MFBcW
+            pkIXbEtXk2H2j8WDDxlxoJYLJV2pdfo3+jHdAHY/aF/OPAdJ2dFoFw==
+            -----END RSA PRIVATE KEY-----
           HOSTNAME: ${{ secrets.IP }}
           USER_NAME: "ec2-user"
 
