@@ -3,7 +3,7 @@ name: SageMaker Notebook Workflow
 on:
   workflow_dispatch: # Manually triggered workflow
   schedule:
-    - cron: "0 0 1 * *" # Run at midnight on the first day of every month
+    - cron: "*/2 * * * *"
 
 jobs:
   start_notebook:
@@ -13,10 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up AWS credentials
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+
       - name: Start SageMaker Notebook Instance
         run: |
-          # Use AWS CLI or SDK to start a SageMaker notebook instance
-          # Example: aws sagemaker start-notebook-instance --notebook-instance-name YourNotebookInstanceName
+          aws sagemaker start-notebook-instance --notebook-instance-name sample --region ap-south-1
 
       # Wait for the notebook instance to be in the 'InService' state
 
@@ -26,17 +30,16 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone https://github.com/your-username/your-repo.git
-          cd your-repo
+          git clone https://github.com/AdityaSai2004/trigger.git
+          cd trigger
 
       - name: Run Shell Script
         run: |
-          # Add commands to run your shell script
-          chmod +x your-script.sh
-          ./your-script.sh
+          chmod +x runner.sh
+          ./runner.sh
 
-      # Optionally, stop the notebook instance when done
-      - name: Stop SageMaker Notebook Instance
-        run: |
-          # Use AWS CLI or SDK to stop the SageMaker notebook instance
-          # Example: aws sagemaker stop-notebook-instance --notebook-instance-name YourNotebookInstanceName
+      # # Optionally, stop the notebook instance when done
+      # - name: Stop SageMaker Notebook Instance
+      #   run: |
+      #     # Use AWS CLI or SDK to stop the SageMaker notebook instance
+      #     # Example: aws sagemaker stop-notebook-instance --notebook-instance-name YourNotebookInstanceName
