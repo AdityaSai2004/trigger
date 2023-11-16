@@ -6,6 +6,23 @@ on:
     - cron: "*/2 * * * *"
 
 jobs:
+  Deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build & Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH }}
+          HOSTNAME: ${{ secrets.IP }}
+          USER_NAME: ec2-user
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          echo "Hello World"
+
   # start_notebook:
   #   runs-on: ubuntu-latest
 
@@ -27,26 +44,26 @@ jobs:
 
   #     # Wait for the notebook instance to be in the 'InService' state
 
-  clone_and_run:
-    runs-on: ubuntu-latest
+  # clone_and_run:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        run: |
-          git clone https://github.com/AdityaSai2004/trigger.git
-          cd trigger
+  #   steps:
+  #     - name: Checkout repository
+  #       run: |
+  #         git clone https://github.com/AdityaSai2004/trigger.git
+  #         cd trigger
 
-      - name: Run Shell Script
-        run: |
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.ID }}"
+  #     - name: Run Shell Script
+  #       run: |
+  #         echo "AWS_ACCESS_KEY_ID=${{ secrets.ID }}"
 
-          ssh -i ${{ secrets.SSH }} ec2-user@${{ secrets.IP }} "cd /trigger && chmod +x runner.sh && ./runner.sh"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.KEY}}
+  #         ssh -i ${{ secrets.SSH }} ec2-user@${{ secrets.IP }} "cd /trigger && chmod +x runner.sh && ./runner.sh"
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.KEY}}
 
-      # # Optionally, stop the notebook instance when done
-      # - name: Stop SageMaker Notebook Instance
-      #   run: |
-      #     # Use AWS CLI or SDK to stop the SageMaker notebook instance
-      #     # Example: aws sagemaker stop-notebook-instance --notebook-instance-name YourNotebookInstanceName
+  # # Optionally, stop the notebook instance when done
+  # - name: Stop SageMaker Notebook Instance
+  #   run: |
+  #     # Use AWS CLI or SDK to stop the SageMaker notebook instance
+  #     # Example: aws sagemaker stop-notebook-instance --notebook-instance-name YourNotebookInstanceName
