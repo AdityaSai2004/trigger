@@ -1,0 +1,42 @@
+name: SageMaker Notebook Workflow
+
+on:
+  workflow_dispatch: # Manually triggered workflow
+  schedule:
+    - cron: "0 0 1 * *" # Run at midnight on the first day of every month
+
+jobs:
+  start_notebook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Start SageMaker Notebook Instance
+        run: |
+          # Use AWS CLI or SDK to start a SageMaker notebook instance
+          # Example: aws sagemaker start-notebook-instance --notebook-instance-name YourNotebookInstanceName
+
+      # Wait for the notebook instance to be in the 'InService' state
+
+  clone_and_run:
+    runs-on: [self-hosted, aws]
+
+    steps:
+      - name: Checkout repository
+        run: |
+          git clone https://github.com/your-username/your-repo.git
+          cd your-repo
+
+      - name: Run Shell Script
+        run: |
+          # Add commands to run your shell script
+          chmod +x your-script.sh
+          ./your-script.sh
+
+      # Optionally, stop the notebook instance when done
+      - name: Stop SageMaker Notebook Instance
+        run: |
+          # Use AWS CLI or SDK to stop the SageMaker notebook instance
+          # Example: aws sagemaker stop-notebook-instance --notebook-instance-name YourNotebookInstanceName
