@@ -45,7 +45,7 @@ jobs:
           USER_NAME: ec2-user
 
         run: |
-          ssh -i private_key ec2-user@${{ secrets.IP }}
+          ssh -i ${{env.PRIVATE_KEY}} ec2-user@${{ secrets.IP }}
           echo "Hello World"
 
   # start_notebook:
