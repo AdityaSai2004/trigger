@@ -6,29 +6,29 @@ on:
     - cron: "*/2 * * * *"
 
 jobs:
-  start_notebook:
-    runs-on: ubuntu-latest
+  # start_notebook:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      # - name: Set up AWS credentials
-      #   run: |
-      #     echo "AWS_ACCESS_KEY_ID=${{ secrets.ID }}" >> $GITHUB_ENV
-      #     echo "AWS_SECRET_ACCESS_KEY=${{ secrets.KEY }}" >> $GITHUB_ENV
+  #     # - name: Set up AWS credentials
+  #     #   run: |
+  #     #     echo "AWS_ACCESS_KEY_ID=${{ secrets.ID }}" >> $GITHUB_ENV
+  #     #     echo "AWS_SECRET_ACCESS_KEY=${{ secrets.KEY }}" >> $GITHUB_ENV
 
-      - name: Start SageMaker Notebook Instance
-        run: |
-          aws sagemaker start-notebook-instance --notebook-instance-name sample --region ap-south-1
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.KEY }}
+  #     # - name: Start SageMaker Notebook Instance
+  #     #   run: |
+  #     #     aws sagemaker start-notebook-instance --notebook-instance-name sample --region ap-south-1
+  #     #   env:
+  #     #     AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
+  #     #     AWS_SECRET_ACCESS_KEY: ${{ secrets.KEY }}
 
-      # Wait for the notebook instance to be in the 'InService' state
+  #     # Wait for the notebook instance to be in the 'InService' state
 
   clone_and_run:
-    runs-on: [self-hosted, aws]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -38,8 +38,7 @@ jobs:
 
       - name: Run Shell Script
         run: |
-          chmod +x runner.sh
-          ./runner.sh
+          ssh -i ${{ secrets.SSH }} ec2-user@${{ secrets.IP }} "cd /trigger && chmod +x runner.sh && ./runner.sh"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEY}}
